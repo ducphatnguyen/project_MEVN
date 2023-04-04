@@ -6,7 +6,7 @@
   </div>
 </template>
 <script>
-import SignUpForm from "@/components/SignUpForm.vue";
+import SignUpForm from "@/components/admin/SignUpForm.vue";
 import userService from "@/services/user.service";
 
 export default {

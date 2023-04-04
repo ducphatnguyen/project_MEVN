@@ -12,8 +12,9 @@ class UserService {
             email: payload.email,
             password: bcrypt.hashSync(payload.password, 8),
             name: payload.name,
+            role: 1 // Người dùng thành viên
         };
-        // Remove undefined fields
+        // Loại bỏ những trường không không được định nghĩa
         Object.keys(user).forEach(
             (key) => user[key] === undefined && delete user[key]
         );
@@ -61,8 +62,6 @@ class UserService {
         );
         return result.modifiedCount > 0;
     }
-    
-      
-
 }
+
 module.exports = UserService;

@@ -43,9 +43,9 @@
     </div>
 </template>
 <script>
-import ContactCard from "@/components/ContactCard.vue";
-import InputSearch from "@/components/InputSearch.vue";
-import ContactList from "@/components/ContactList.vue";
+import ContactCard from "@/components/admin/ContactCard.vue";
+import InputSearch from "@/components/admin/InputSearch.vue";
+import ContactList from "@/components/admin/ContactList.vue";
 import ContactService from "@/services/contact.service";
 export default {
     components: {

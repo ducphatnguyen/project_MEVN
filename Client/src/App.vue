@@ -1,19 +1,22 @@
 <script>
-import AppHeader from "@/components/AppHeader.vue";
+import AppHeader from "@/components/admin/AppHeader.vue";
+
 export default {
   components: {
     AppHeader,
   },
 };
 </script>
+
 <template>
   <div id="app">
-    <AppHeader />
+    <AppHeader/>
     <div class="container mt-3">
-      <router-view />
+      <router-view/>
     </div>
   </div>
 </template>
+
 <style>
 .page {
   max-width: 400px;

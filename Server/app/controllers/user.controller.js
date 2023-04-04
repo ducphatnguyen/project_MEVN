@@ -39,15 +39,18 @@ exports.signIn = async (req, res, next) => {
     if (!user) {
       return next(new ApiError(401, "Invalid email or password"));
     }
-    const token = jwt.sign({ id: user._id }, jwtSecret, {
+
+    //Token sẽ được mã hóa từ user_id và role
+    const token = jwt.sign({ id: user._id, role: user.role }, jwtSecret, {
       expiresIn: 864000, // 24 giờ
     });
-
+    
     //Thêm token vào CSDL
     await userService.addToken(user._id, token);
 
     // Gửi về client để client lưu trữ và client sẽ dùng token này cho mỗi lần request tới server và server sẽ xác thực
     res.setHeader("Authorization", "Bearer " + token);
+    
     return res.send({ message: "Signin successfully", token: token });
   } catch (error) {
     console.error(error);

@@ -14,13 +14,22 @@ const requireLogin = (req, res, next) => {
         if (err) {
             return next(new ApiError(401, 'Unauthorized: invalid token'));
         }
+        // console.log(decoded); // Giải mã để lấy user_id và role
+        // console.log(decoded.role); // in ra đối tượng decoded để kiểm tra
+        if (decoded.role !== 0) {
+            return next(new ApiError(403, 'Forbidden: insufficient permission'));
+        }
         req.user = decoded;
         next();
     });
 };
 
-const contactsRouter = require("./app/routes/contact.route");
+//1
 const usersRouter = require("./app/routes/user.route");
+const contactsRouter = require("./app/routes/contact.route");
+const categoriesRouter = require("./app/routes/category.route");
+const productsRouter = require("./app/routes/product.route");
+
 
 const ApiError = require("./app/api-error");
 
@@ -28,8 +37,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use('/api/contacts', requireLogin, contactsRouter);
+//2
 app.use('/api/users', usersRouter);
+app.use('/api/contacts', requireLogin, contactsRouter);
+app.use('/api/categories', requireLogin, categoriesRouter);
+app.use('/api/products', requireLogin, productsRouter);
 
 // handle 404 response
 app.use((req, res, next) => {
@@ -49,5 +61,6 @@ app.use((err, req, res, next) => {
 app.get("/", (req, res) => {
     res.json({ message: "Welcome to contact book application."});
 })
+
 
 module.exports = app;
